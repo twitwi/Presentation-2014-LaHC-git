@@ -1,0 +1,7 @@
+
+
+- log in
+- create a project
+- select https
+- do what they say
+- push show

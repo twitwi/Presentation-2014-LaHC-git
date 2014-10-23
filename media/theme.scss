@@ -1,0 +1,172 @@
+
+div.deck-container {
+    &.black-bg { background: black !important; }
+
+    >.slide li.re {
+        list-style: none;
+        margin-left: -.7em;
+    }
+    >.slide li.no { list-style: none; }
+    .displaynone { display: none; }
+        
+    >.slide.illustrations-left .illustrations {float: left;}
+    >.slide.illustrations-left>ul {display: inline-block;}
+
+    .floatright { float: right; }
+    .floatleft { float: left; }
+
+    .dense { font-size: 70.7106% !important; }
+    .denser { font-size: 50% !important; }
+    .monospace { font-family: monospace; }
+    .monospacelist li {
+        font-family: monospace;
+    }
+
+    .inred { color: red; }
+
+    >.overview>h2 {
+        background: black;
+        color: white;
+        border-bottom-color: red;
+    }
+
+    blockquote {
+        border: 1px solid darkgrey;
+        border-radius: 5px;
+        padding: 0;
+        font-size: 30px;
+        font-style: italic;
+    }
+    blockquote p {
+        margin: 0;
+        padding: 30px;
+    }
+    blockquote p cite {
+        font-size: 20px;
+    }
+    code {
+        padding: 0px 5px;
+        background: rgba(255,255,200, 0.2);
+        color: black;
+        border: 1px dotted grey;
+    }
+    .stdout code {
+        background: none;
+        display: block;
+        white-space: pre;
+        color: black;
+    }
+    .scroll {
+        overflow-y: scroll;
+    }
+    .lefty {
+        margin-left: -1cm !important;
+    }
+    .lefter {
+        margin-left: -2cm !important;
+    }
+    /* */
+    .title-slide {
+        ul { opacity: 0.9; font-size: 50%; text-align: center; list-style: none !important; }
+        h1 { margin-top: -150px; }
+        /*h2 { z-index: 100; }*/
+        ul { margin-top: 370px; }
+        /*border: 6px solid black;*/
+        background: url(logo-ujm.png) bottom left no-repeat, url(logo-lahc.png) bottom right no-repeat;
+    }
+
+    &:not(.no-status) a.ccby {
+        position: absolute;
+        background: url(by.svg) bottom right no-repeat;
+        background-size: contain;
+    }
+
+    >.slide.ujm {
+        background: url(logo-ujm.png) bottom left no-repeat;
+        background-size: 150px;
+    }
+
+    >.slide.key {
+        border: 20px solid #8B0000;
+        border-radius: 30px;
+        box-sizing: border-box;
+    }
+
+    >.slide.bash {
+        background: url(bash.svg) bottom left no-repeat;
+        background-size: 100px;
+    }
+    >.slide.bashtr {
+        background: url(bash.svg) top right no-repeat;
+        background-size: 100px;
+    }
+    >.slide.py, *.code.python {
+        background: url(python.svg) top right no-repeat;
+        background-size: 100px;
+    }
+    >.slide.pytr {
+        background: url(python.svg) top right no-repeat;
+        background-size: 100px;
+    }
+    .bashli {
+        background: url(bash.svg) center left no-repeat;
+        background-size: 3em;
+        padding-left: 3.5em !important;
+    }
+    .pyli {
+        background: url(python.svg) center left no-repeat;
+        background-size: 3em;
+        padding-left: 3.5em !important;
+    }
+    
+
+    /* */
+    >.cols2>ul>li:nth-of-type(1) {
+        float: left;
+        display: block;
+        width: 370px;
+    }
+    >.cols2>ul>li:nth-of-type(2) {
+        float: right;
+        display: block;
+        width: 370px;
+    }
+    >.cols2>ul>li:nth-of-type(3) {
+        clear: both;
+    }
+
+    .clearboth {
+        clear: both;
+    }
+
+    /* */
+    .spec strong {color: red; }
+    .spec em {color: darkblue; font-family: monospace; font-weight: normal; border: 1px solid #77F; padding: 1px 3px;}
+
+    .SCREEN {background: white; display: block; position: absolute; bottom: 0; left: 0; right:0; opacity: 0.9;}
+
+}
+
+    /* Quizz */
+div.deck-container {
+    .slide.q {
+        h2 {display: none;}
+
+        ul {list-style: none;}
+        ul li>span {display: none;}
+        ul li ul {font-weight: bold;}
+
+        ol li {padding: 5px; margin-top: 10px; margin-right: 10px;}
+        ol {list-style-type: upper-alpha;}
+        ol li:nth-of-type(1) {background: rgb(255, 140,140);}
+        ol li:nth-of-type(2) {background: yellow;}
+        ol li:nth-of-type(3) {background: rgb(170, 170, 255);}
+        ol li:nth-of-type(4) {background: rgb(100, 255, 100)}
+        ol li {color: black;}
+        ol li tt {border: 0; color: black;}
+
+        div.c {margin: 10px;}
+        
+    }
+}
+body.show-comments .deck-container .slide.q .OK {outline: 3px solid black;}

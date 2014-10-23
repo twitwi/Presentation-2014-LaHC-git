@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+            
+        <title>Introduction to Version Control using Git and Gitlab</title>
+
+        <meta name="author" content="Rémi Emonet">
+        <meta name="venue" content="Presentation in Laboratoire Hubert Curien">
+        <meta name="date" content="2014-10-23">
+        <meta name="affiliation" content="Université Jean Monnet − Laboratoire Hubert Curien">
+ 
+        <style type="text/css">
+            .slide .densequote blockquote { padding: 5px;}
+            .slide .densequote blockquote>p { margin: 0; padding: 5px; font-size: 60%;}
+
+            pre, .slide li strong {background: #222; color: #0F0;} /* TODO: change for export/printing */
+            .slide li strong {font-weight: normal; font-family: monospace; font-style: normal; padding-left: .3em; padding-right: .3em;}
+
+            .key { font-size: 85%;}
+
+        </style>
+
+	<script src="deckjs-custom.js"></script>
+        <script>
+            includedeck("", {
+                         AFTERSMARKDOWN: function() {
+                             $(".slide.libyli li:not(li li):not(.notslide)").addClass("slide");
+                             $("li.libyli>ul>li:not(.notslide)").addClass("slide");
+                             $("#plan").detach();
+            //quizzIt();
+                         },
+                         PREFIX: "deck.js"
+                        }
+            );
+        </script>
+
+    </head>
+
+<body>
+
+<div class="deck-container">
+
+    <div class="deck-loading-splash" style="background: black; color: #F87;">
+        <span class="vcenter" style="font-size: 30px; font-family: Arial; ">Please wait, while our marmots are preparing the hot chocolate…</span>
+    </div>
+
+    <section class="smark">
+
+# <span class="var-title-br"></span> {*no-status title-slide} // commentaire
+- <span class="var-date"></span>
+- <span class="var-author"></span>
+- <span class="var-affiliation"></span>
+
+
+
+<!-- ######################################## -->
+## Version Control Using Git and Gitlab {#plan overview}
+- Introduction to Version Control and Git {vcs}
+- Git basics {git}
+- Schyzophrenic Git {multigit}
+- Collaborating using Git and GitLab (or github) {gitlab}
+- Summing it up {concl}
+
+
+## About You {libyli}
+- Who already knows Git?
+- Who knows any of these?
+  - CVS, Subversion,
+  - Mercurial, Baz, GnuArch
+
+## About This Presentation {libyli}
+- Objectives
+  - get convinced by version control systems
+  - learn practical Git skills
+  - learn about GitLab for collaboration
+  - hands on with some “code” : a LaTeX paper
+- Don't Hesitate {libyli}
+  - to ask questions
+  - to interrupt me
+  - to ping me after, when trying to practice
+
+<!-- ######################################## -->
+# @copy:#plan: %+class:inred: .vcs
+
+## Why? {*no-status image-fit bottom-left darkened}
+<div class="img" style="background-image: url(media/phd101212s.gif)" data-attribution="http://www.phdcomics.com/comics/archive/phd101212s.gifl" data-attribution-content="@davclark (PhD comics)"></div>
+
+## Version Control: What? {libyli}
+- A version control system (VCS)
+  - records what you and your collaborators have done
+  - allows easy replication across machines
+  - allows you to easily see changes
+  - allows you to easily experiment new things
+- Why dropbox/google drive/... is not sufficient
+  - safety of your data
+  - ownership of your data
+  - semantics of your changes
+- Why CVS/Subversion might not be sufficient
+  - centralized : a host of the repository
+  - working in the train/plane/countryside
+  - speed limit
+- <blockquote ><p>SVN-Git migration in progress. 8h to retrieve full SVN history, <br/>less than 1min to push full history to Git (same network)!</p><cite>@clem_bouillier</cite></blockquote> {no densequote}
+
+## Git {libyli}
+- <blockquote><p>Git (/ɡɪt/) is a distributed revision control and source code management (SCM) system with an emphasis on speed, data integrity, and support for distributed, non-linear workflows. Git was initially designed and developed by Linus Torvalds for Linux kernel development in 2005, and has since become the most widely adopted version control system for software development.</p><cite>wikipedia</cite></blockquote>{densequote}
+- History of Git
+  - open source
+  - initiated by Linus Torvalds
+  - first release: 7 April 2005
+  - version 2.1.2: 30 September 2014
+  - fast and efficient
+  - most used
+- Good alternative: mercurial (hg)
+
+
+<!-- ######################################## -->
+# @copy:#plan: %+class:inred: .git
+
+## Starting with Git {libyli}
+- Initializing your project <br/><pre>git init</pre>
+- What's up? <br/><pre>git status</pre>
+- Deciding what is relevant <br/> <pre>git add file1 file2 …<br/>git commit</pre>
+- first: <a href="#introduceyourself">introduce yourself</a>
+
+## Let's try it // script "simple.txt"
+<pre>cp -r base mypaper ; cd mypaper
+
+git init
+
+git status
+git add     mypaper.tex  cvpr.sty
+git status
+git commit
+git status
+
+... and more
+</pre>
+<a target="_blank" href="script/simple.txt">…</a>
+
+## Recap {libyli}
+* Beginning
+<pre>git init<br/>git add ...<br/>git commit [-m ...]</pre>
+* Working
+<pre>git status<br/>git add ...<br/>git commit [-m ...]</pre>
+
+## Recap 2 {libyli}
+- Keep your project clean: ignoring files
+  - **.gitignore** file(s)
+  - **blabla.* ** , **!blabla.my_precious**, ** *~**
+- What did I just modify?
+<pre>git status<br/>git diff [...]</pre>
+- What happened?
+<pre>git log</pre>
+
+## Nota Bene (vs CVS, Subversion) {libyli}
+- You have the complete repository
+  - have all commits locally
+  - commit often, fast and everywhere (train, plane, here)
+  - merge with 0-stress
+  - warning: commit ≠ backup
+- Need to “**git add**” modifications
+- Repository == project
+  - SVN has a big tree-shaped repository
+  - SVN allows to "checkout" any subtree
+  - Git works at the repository level
+  - you'll have a set of repository
+  - commits are at the repository level
+
+## GUI for Git
+- Bundled with git: <em>git gui</em> // maybe not anymore
+- Many others (gitg, qgit, GitX, tortoisegit, Netbeans, ...)
+- <a href="http://git-scm.com/downloads/guis">graphical user interfaces for Git</a>
+- <a href="https://git.wiki.kernel.org/index.php/InterfacesFrontendsAndTools">huge list of frontends and tools</a>
+## Customizing Git {#introduceyourself}
+- Introducing yourself
+<pre class="smaller">git config --global user.name  "John Doe"<br/>git config --global user.email john@doe.com</pre>
+- Fancy colors and shortcuts
+<pre>git config --global color.ui true<br/><br/>git config --global alias.st status<br/>git config --global alias.ci commit</pre>
+- Configuration in **~/.gitconfig**
+
+
+
+<!-- ######################################## -->
+# @copy:#plan: %+class:inred: .multigit
+
+## About History {libyli}
+- Remember **git log**?
+- Each commit is written in stone
+  - parent(s) commit
+  - modifications
+  - sha1sum (e.g.    cb6dc3cb1f4f5eb15c1d9b2b25ae741cd73c0554)
+<br/>
+- can be diff'ed against <br/><pre>git diff cb6dc3...</pre>
+- can be retreived <br/><pre>git checkout cb6dc3...</pre>
+
+## Back to the Future: parallel universes
+<pre>git log
+gitk    # or gitg
+
+git checkout 41474a33e098689b...
+
+emacs paper.tex
+git commit
+gitk
+gitk --all
+
+... and more
+</pre>
+<a target="_blank" href="script/branches.txt">…</a>
+
+## Recap
+- Branch
+  - a label for a commit
+  - automatically follows on new commit (**git commit**)
+- Always commit before merging
+  - commit is cheap, easy and local
+  - you never loose anything when merging // maybe your temper
+- Use of “sha1” or branch-name (e.g. brrrr)
+- Shortcuts
+<pre>cb6dc3, brrrr, HEAD,<br/>HEAD^, HEAD~, HEAD~~, HEAD~2, HEAD~42,<br/>HEAD^2, cb6dc3^42, tagggg</pre>
+
+## Recap 2
+- Moving in the history
+<pre>git checkout sha1-or-branch-name</pre>
+- Creating a new branch at current position
+<pre>git checkout -b new-branch-name</pre>
+- Merging “brrrr” into “master”
+<pre>git checkout master<br/>git merge brrrr</pre>
+
+## Recap 3
+- Automatic **git merge** ⇒ automatic commit
+- On conflicting **git merge**
+  - (partial merge)
+  - solve conflict
+  - <em>git add</em>
+  - <em>git commit</em>
+<br/>
+- Exploring history
+  - **git log**
+  - **gitk [--all]**
+  - **log --graph --decorate --oneline --all --color**
+
+# Best Practices {no-print}
+
+## Best Practices {libyli}
+- commit early and often
+- always commit before merge (or pull)
+- use meaningful commit messages
+- avoid committing
+  - binary files that change often (NB: word/excel/... are binary) 
+  - generated files (that can be regenerated in a reasonable time)
+  - temporary files
+- keep your git status clean
+- don't put git repositories inside git repositories
+- <a target="_blank" href="http://sethrobertson.github.io/GitBestPractices/">more</a>
+
+
+<!-- ######################################## -->
+# @copy:#plan: %+class:inred: .gitlab
+
+## What is GitLab (and GitHub)
+- GitLab
+  - a company providing support and advanced features
+  - an open source project (Community Edition)
+  - a web application
+    - collaboration platform
+    - hosting git repositories
+    - visualizing repositories
+    - managing issues/tickets
+- <blockquote><p>GitLab offers git repository management, code reviews, issue tracking, activity feeds, wikis.</p></blockquote> {no densequote}
+
+## Let's Go
+- Create a repository on GitLab
+- Push our content
+  - link our repository to the remote repository (on GitLab)
+  - push the changes to this remote repository
+- On another machine
+  - clone the repository
+  - make changes, commit and push them
+- On this machine
+  - pull changes: fetch them and then merge
+
+## Recap GitLab (and Git remotes) {libyli}
+- GitLab project == git repository (+ more)
+
+## More GitLab (additions to git) {libyli}
+- Groups
+  - groups of users (e.g., PhD student and supervisors)
+  - automatic access to the projects of the group
+- Forking
+  - take a repository on GitLab
+  - make a “personal” copy of this repository (still on GitLab)
+- Merge requests (pull requests in GitHub)
+  - ask for another repo to integrate changes from your fork
+- Issues
+  - bug
+  - questions
+  - feature requests
+- Wikis
+  - set of pages
+  - (also accessible as a git repository)
+
+## Things to Know at UJM {ujm libyli}
+- SSH access is disabled
+  - always use "https://gitlab...." to clone your repository
+- To avoid typing your login every time
+  - add your user name and @ after https://
+  - e.g.,
+  - <tt>git clone https://**er1234h@**gitlab.univ-st-etienne.fr/remi.emonet/pyqtidoteach.git</tt> {denser no}
+  - in case you forgot, you can edit **.git/config**
+- In case of problems while pushing big sets of commits
+  - <pre>error: RPC failed; result=22, HTTP code = 411
+fatal: The remote end hung up unexpectedly</pre>
+  - just run **git config http.postBuffer 524288000**
+
+## How to Get an Account on GitLab {ujm libyli}
+- For people with a UJM account
+  - open a ticket and asking “to get an account on GitLab”
+  - wait until you're notified it has been done
+  - visit <a href="http://gitlab.univ-st-etienne.fr/">http://gitlab.univ-st-etienne.fr/</a>
+  - use your UJM login/pass to connect
+  - ignore the email you'll receive
+- For other people (interns, external collaborators)
+  - a person from UJM needs to open a ticket asking for the account
+    - providing an email and a name (for each collaborator)
+  - upon creation, you receive your credentials
+  - to log in, visit https://gitlab.univ-st-etienne.fr/
+  - click on the “Standard” tab
+  - use the credentials you've been given
+
+<!-- ######################################## -->
+# @copy:#plan: %+class:inred: .concl
+
+## Key Points {#key key deck-status-fake-end}
+- Version control
+  - keep track of what happened
+  - store semantic snapshots/versions of your “code”
+- Git
+  - “distributed” version control: you have a complete repository
+  - efficient and widely used
+  - one repository per project
+- GitLab
+  - a place to share repositories (projects)
+  - visualization of the repositories, wiki pages, issue tracker, …
+  - groups of users (e.g., PhD student and supervisors)
+  - available only via https, no SSH (in University Jean Monnet)
+- Links
+  - <a href="http://pcottle.github.io/learnGitBranching/">interactive learning of branching in Git</a>
+  - <a href="http://git-scm.com/">official website</a>
+  - <a href="http://git-scm.com/downloads/guis">graphical user interfaces for Git</a>
+  - for <a href="http://www.youtube.com/watch?v=4XpnKHJAok8">Git by a git</a>, ask Linus Torvald
+  - <a href="http://git-scm.com/book">Pro Git book</a> (available online)
+
+## Correspondence git <-> svn {libyli}
+- git commit <-> none
+- git commit ; git push <-> svn commit
+- git fetch <-> none
+- git fetch ; git merge <-> svn update
+- git pull == git fetch ; git merge
+-  {no}
+- NB: you can use git to collaborate with SVN users
+
+## Going further
+- git remote add
+- git tag
+- git rebase
+- git commit --amend
+- git reflog
+- git ls-files
+- git revert
+- git bisect
+
+# Thanks!
+
+</section>
+
+    <!-- deck.status snippet -->
+    <p class="deck-status deck-progress-10"> <span class="deck-status-current"></span> / <span class="deck-status-total"></span> − <span class="var-author">will be replaced by the author</span> − <span class="var-title">will be replaced by the title</span></p>
+
+    <a data-progress-size=": spe.top(15, 565); height: 35*designRatio; left: slide.right - 70*designRatio; width: 70*designRatio" class="ccby" href="http://en.wikipedia.org/wiki/Creative_Commons_license" title="This work is under CC-BY licence." target="_blank"></a>
+
+</div>
+</body>
+</html>

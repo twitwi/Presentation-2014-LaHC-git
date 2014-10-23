@@ -1,0 +1,34 @@
+ - get a copy of the folder (base -> 2014-paper)
+ - show the files
+
+ - run: git init
+ - run: git status
+
+ - run: git add paper.tex cvpr.sty
+ - run: git status
+ - run: git commit
+ - run: git status
+ - run: git add images/
+ - run: git commit -m "......"
+
+ - run: pdflatex paper.tex
+ - run: git status
+ - Q: what do we do with these? => ignore them, do not commit
+ - edit: .gitignore
+ -- add: !*.tex
+ -- add: paper*
+ -- add: *~
+ - run: git status   # (en live pendant l'edit)
+ - run: git add .gitignore
+ - run: git commit -m "ignoring some generated files"
+ 
+ - edit: the tex file, add: \includegraphics[width=5cm]{a_bird.png}
+ - run: pdflatex paper.tex
+ - run: acroread paper.pdf
+ - run: git status
+ - run: git diff
+ - run: git commit    # rien a commiter
+ - run: git add paper.tex
+ - run: git commit -m "added image in paper"
+ - run: git log
+

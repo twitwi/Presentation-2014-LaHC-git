@@ -1,0 +1,52 @@
+
+
+ - get a copy of the folder we created
+ - run: git log
+ - run: gitk
+ - run: git checkout "le commit initial"
+ - edit: paper.tex (and keep your editor open)
+ -- change: intro to something shorter
+ -- change: some other part to something shorter
+ - run: git commit
+ - run: gitk (just init + this)
+ - run: gitk --all (all named, not this)
+ - run: git checkout -b shorter
+   - when you do that, your open editor should tell
+     you that the file changed, right away or when
+     you try to change edit the file. If it does not
+     change your editor for something better/safer.
+ - run: gitk --all (all named)
+
+ - run: git checkout master
+ - run: gitk --all (it is bold that moved)
+ - run: git merge shorter
+ - run: gitk --all
+
+ - run: git checkout master # already on it
+ - run: git checkout -b pig
+ - add the pig image
+ - edit:
+ -- change the title
+ -- replace the bird with a pig
+ - commit it
+
+ - run: git checkout master
+ - edit:
+ -- go from one bird to 3 birds
+\includegraphics[width=2.5cm]{a_bird.png}
+\includegraphics[width=3cm]{a_bird.png}
+\includegraphics[width=2cm]{a_bird.png}
+ -- modify something else
+ - commit
+ - run: gitk --all
+
+ - run: git merge pig (conflict)
+ - run: git status
+ - run: git gui    (to have a look)
+ - run: gitk --all (in progress)
+ - open and fix (look at title, modif part and the conflict)
+ - run: pdflatex paper.tex
+ - run: git status
+ - run: git add paper.tex
+ - run: git commit
+
